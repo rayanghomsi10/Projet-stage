@@ -34,7 +34,7 @@ Route::get('edit/{product}', 'ProductController@edit')->name('edit');
 Route::put('edit/{product}', 'ProductController@update')->name('update');
 Route::delete('/{product}', 'ProductController@destroy')->name('destroy');
 
-//Route::resource('products', \App\Http\Controllers\ProductController::class);
+Route::resource('products', \App\Http\Controllers\ProductController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

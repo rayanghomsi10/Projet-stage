@@ -28,6 +28,12 @@ Route::get('/create', 'ProductController@create')->name('create');
 
 Route::post('store/', 'ProductController@store')->name('store');
 
+Route::get('show/{product}', 'ProductController@show')->name('show');
+
+Route::get('edit/{product}', 'ProductController@edit')->name('edit');
+Route::put('edit/{product}', 'ProductController@update')->name('update');
+Route::delete('/{product}', 'ProductController@destroy')->name('destroy');
+
 //Route::resource('products', \App\Http\Controllers\ProductController::class);
 
 Route::get('/dashboard', function () {

@@ -62,7 +62,7 @@
             @foreach($products as $product)
             <li>
                 <div class="product">
-                    <img class="ya" src="{{ $product->image }}" alt="Produit">
+                    <img class="ya" src="./images/{{ $product->image }}" alt="Produit">
                     <h3>{{$product->name }}</h3>
                     <h4>{{$product->price }} fcfa</h4>
                     <p>{{substr($product->description, 0, 15) }}</p>

@@ -12,6 +12,12 @@
         </div>
     </div>
 
+    @if($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{$message}}</p>
+        </div>
+    @endif
+
     <table class="table table-bordered">
         <tr>
             <th>No</th>
@@ -24,15 +30,15 @@
         @foreach($products as $product)
             <tr>
                 <td>{{ ++$i }}</td>
-                <td><img src="/public/images/{{$product->image}}" width="100px"></td>
+                <td><img src="images/{{$product->image}}" width="100px"></td>
                 <td>{{$product->name}}</td>
                 <td>{{$product->price}}</td>
                 <td>{{$product->description}}</td>
                 <td>
-                    <form action="" method="post">
-                        <a href="" class="btn btn-info">show</a>
+                    <form action="{{route('destroy', $product->id)}}" method="post">
+                        <a href="{{route('show', $product->id)}}" class="btn btn-info">show</a>
 
-                        <a href="" class="btn btn-primary">edit</a>
+                        <a href="{{route('edit', $product->id)}}" class="btn btn-primary">edit</a>
 
                         @csrf
                         @method('DELETE')

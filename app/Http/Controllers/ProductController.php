@@ -46,34 +46,44 @@ class ProductController extends Controller
             ->with('success','product created successfully');
     }
 
-    public function show(Product $products)
+    public function show(Products $product)
     {
-        return view('products.show', compact('products'));
+        return view('show', compact('product'));
     }
 
-    public function edit(Product $products)
+    public function edit(Products $product)
     {
-        return view('products.edit', compact('products'));
+        return view('edit', compact('product'));
     }
 
-    public function update(Request $request, Product $products)
+    public function update(Request $request, Products $product)
     {
         $request->validate([
-            'image' => 'required',
             'name' => 'required',
             'price' => 'required',
             'description' => 'required',
         ]);
 
-        $products->update($request->all());
+        $input = $request->all();
+        if ($image = $request->file('image')){
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension() ;
+            $image->move($destinationPath, $profileImage);
+            $input['image']="$profileImage";
+        }else{
+            unset($input['image']);
+        }
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+        $product-> update($input);
+        return redirect()->route('index')
+            ->with('success', 'Product updated successfully');
     }
 
-    public function destroy(Product $products)
+    public function destroy(Products $product)
     {
-        $products->delete();
+        $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('index')
+            ->with('success', 'Product deleted successfully.');
     }
 }
